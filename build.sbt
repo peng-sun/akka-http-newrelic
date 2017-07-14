@@ -6,13 +6,17 @@ import scala.util.Properties.envOrNone
 
 name := "akka-http-newrelic"
 organization := "com.github.leachbj"
-scalaVersion := "2.11.8"
+scalaVersion := "2.12.2"
 
-libraryDependencies ++= Seq(
-  "com.typesafe.akka" %% "akka-http-core" % "2.4.4" % "provided",
-  "com.newrelic.agent.java" % "newrelic-api" % "3.30.1" % "provided",
-  "com.newrelic.agent.java" % "newrelic-agent" % "3.30.1" % "provided"
-)
+libraryDependencies ++= {
+  val akkaHttpVersion = "10.0.9"
+  val newrelicVersion = "3.40.0"
+  Seq(
+    "com.typesafe.akka" %% "akka-http-core" % akkaHttpVersion % "provided",
+    "com.newrelic.agent.java" % "newrelic-api" % newrelicVersion % "provided",
+    "com.newrelic.agent.java" % "newrelic-agent" % newrelicVersion % "provided"
+  )
+}
 
 packageOptions in(Compile, packageBin) +=
   Package.ManifestAttributes("Weave-Classes" -> "akka.http.scaladsl.HttpExt,akka.http.impl.engine.client.PoolInterfaceActor$PoolRequest,akka.http.impl.engine.client.PoolInterfaceActor,akka.http.impl.engine.client.PoolFlow$RequestContext,akka.http.impl.engine.client.PoolGateway",
